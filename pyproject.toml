@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "encryptx"
+version = "1.0.0"
+description = "Windows GUI application for modern file and folder encryption"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["cryptography>=44.0.0"]
+
+[project.scripts]
+encryptx = "encryptx.app:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
