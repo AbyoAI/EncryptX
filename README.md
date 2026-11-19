@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.png" alt="EncryptX - encrypt, decrypt and verify files from the Windows right-click menu" width="100%">
+  <img src="https://github.com/AbyoAI/EncryptX/blob/main/Docs/banner.png" alt="EncryptX - encrypt, decrypt and verify files from the Windows right-click menu" width="100%">
 </p>
 
 <p align="center">
@@ -48,11 +48,11 @@ Right-click a file or folder  >  EncryptX  >  Encrypt | Decrypt | Checksum
 
 | Full window | Decrypt with checksum verification |
 |:---:|:---:|
-| <img src="docs/screenshots/main-encrypt-done.png" width="440"> | <img src="docs/screenshots/main-decrypt.png" width="440"> |
+| <img src="Docs/screenshots/main-encrypt-done.png" width="440"> | <img src="Docs/screenshots/main-decrypt.png" width="440"> |
 
 | Right-click: Encrypt | Right-click: Decrypt | Right-click: Checksum |
 |:---:|:---:|:---:|
-| <img src="docs/screenshots/context-encrypt-done.png" width="290"> | <img src="docs/screenshots/context-decrypt.png" width="290"> | <img src="docs/screenshots/context-checksum.png" width="290"> |
+| <img src="Docs/screenshots/context-encrypt-done.png" width="290"> | <img src="Docs/screenshots/context-decrypt.png" width="290"> | <img src="Docs/screenshots/context-checksum.png" width="290"> |
 
 <sub>Screenshots are rendered from the real interface with the Inter font and a drawn window frame.
 On Windows the window uses the system title bar and Segoe UI.</sub>
