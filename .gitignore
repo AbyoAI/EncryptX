@@ -3,6 +3,7 @@ __pycache__/
 *.egg-info/
 build/
 dist/
+installer/
 .venv/
 venv/
 .env
@@ -10,3 +11,4 @@ venv/
 .coverage
 htmlcov/
 *.encx
+*.iss

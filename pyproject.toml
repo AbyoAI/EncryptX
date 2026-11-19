@@ -1,20 +1,16 @@
 [build-system]
-requires = ["setuptools>=69", "wheel"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "encryptx"
-version = "1.0.0"
-description = "Windows GUI application for modern file and folder encryption"
-readme = "README.md"
-requires-python = ">=3.10"
-dependencies = ["cryptography>=44.0.0"]
+version = "2.0.0"
+description = "File/folder encryption, checksum tool and Windows Explorer integration"
+requires-python = ">=3.9"
+dependencies = ["cryptography>=42", "PySide6-Essentials>=6.6"]
 
-[project.scripts]
+[project.gui-scripts]
 encryptx = "encryptx.app:main"
-
-[tool.setuptools]
-package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]

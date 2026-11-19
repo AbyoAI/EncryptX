@@ -1,3 +1,3 @@
-"""EncryptX package."""
+"""EncryptX - file/folder encryption and checksum tool for Windows."""
 
-__version__ = "1.0.0"
+__version__ = "2.0.0"

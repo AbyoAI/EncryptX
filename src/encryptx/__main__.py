@@ -1,4 +1,5 @@
+"""Allows:  python -m encryptx  [encrypt|decrypt|checksum] [paths...]"""
+
 from .app import main
 
-if __name__ == "__main__":
-    main()
+main()

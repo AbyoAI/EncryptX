@@ -1,57 +1,61 @@
 # EncryptX
 
-EncryptX is a Windows desktop tool for encrypting and decrypting files/folders using modern cryptographic algorithms. It also adds EncryptX actions to the Windows Explorer context menu.
+Encrypt / decrypt files and folders, and calculate checksums - from the Windows
+right-click menu or from a small drag & drop window.
 
-## Features
-
-- Tkinter graphical interface with a dark theme.
-- File and folder encryption (folders are temporarily archived before encryption).
-- Authenticated encryption algorithms, including AES-GCM and ChaCha20-Poly1305.
-- Scrypt or PBKDF2-SHA256 key derivation.
-- Optional compression and randomized output names.
-- Encrypted metadata header.
-- Optional deletion of the source after a successful operation.
-- Windows Explorer context-menu integration.
-
-## Requirements
-
-- Windows 10/11.
-- Python 3.10 or newer.
-
-## Install and run from source
-
-```powershell
-py -m venv .venv
-.venv\Scripts\Activate.ps1
-python -m pip install --upgrade pip
-python -m pip install -e .
-python -m encryptx
+```
+EncryptX  >  Encrypt     files + folders        -> compact Encrypt window
+          >  Decrypt     .encx files            -> compact Decrypt window
+          >  Checksum    files + folders        -> compact Checksum window
+EncryptX.exe                                    -> full window (Encrypt / Decrypt tabs, drag & drop)
 ```
 
-## Usage
+* 9 modern algorithms (AES-GCM, ChaCha20-Poly1305, OCB3, CCM, AES/Camellia + HMAC)
+* Streaming: constant memory (~1 MiB) for any file size, no temporary files
+* The `.encx` file looks like random data: name, algorithm and settings are encrypted
+* Optional end-to-end checksum: stored before encryption, verified after decryption
+* Checksum window: paste a hash, the matching algorithm turns green (11 algorithms, one read)
+* Several selected files open in ONE window
 
-Run `python -m encryptx` to open the installer window. Choose **Install** to add the context menu or **Uninstall** to remove it. Explorer actions open the encryption/decryption window for the selected file or folder.
-
-You can also launch the application module directly: `python -m encryptx.app`.
-
-## Project layout
-
-```text
-encryptx-project/
-├── .github/workflows/tests.yml  # automated checks on pushes and pull requests
-├── src/encryptx/
-│   ├── __init__.py               # package metadata/version
-│   ├── __main__.py               # enables python -m encryptx
-│   └── app.py                    # GUI, encryption logic, and Windows integration
-├── tests/test_package.py         # basic project-structure checks
-├── .gitignore                    # files Git should not track
-├── pyproject.toml                # package/build configuration
-├── requirements.txt              # pip dependency list
-└── README.md                     # project documentation
+## Layout
+```
+src/encryptx/
+    app.py                       entry point / command line
+    crypto/modern.py             streaming authenticated encryption
+    core/file_operations.py      encrypt, decrypt, checksum (no GUI)
+    gui/styles.py                dark flat theme (QSS) + icons
+    gui/widgets.py               flat buttons, source list, progress, hash boxes ...
+    gui/forms.py                 Encrypt / Decrypt option panels
+    gui/jobs.py                  background thread + shared run controller
+    gui/main_window.py           the full window (EncryptX.exe)
+    gui/dialogs.py               the compact right-click windows
+    platform/windows_context_menu.py   Explorer menu (development helper)
+    platform/single_instance.py        many selected files -> one window
+assets/                          logo (icon.ico / icon.png) and .encx file icon
+installer/EncryptX.iss           Inno Setup script (installs + writes the registry keys)
+tests/                           pytest (core + headless GUI tests)
 ```
 
-## Security notes
+## Run from source
+```
+pip install -r requirements.txt
+python run.py                      # full window
+python run.py encrypt  "C:\path\file.txt"
+python run.py checksum "C:\path\folder"
+python run.py install-menu         # development only; end users use the installer
+```
+Run the package from `src/` (`python -m encryptx`), never `python src/encryptx/app.py`:
+the sub-package named `platform` would shadow Python's standard `platform` module.
 
-- Use a strong, unique password and store it in a password manager. EncryptX cannot recover a lost key.
-- Do not enable source deletion until you have tested the workflow and confirmed the output can be decrypted. Keep backups of important data.
-- Encryption protects file contents; it does not protect against malware or someone who can access the unlocked original files.
+## Build the installer
+Needs Python 3.9+ and [Inno Setup 6.3+](https://jrsoftware.org/isdl.php).
+```
+build.bat      ->  dist\EncryptX-Setup-2.0.0.exe
+```
+Per-user install (no admin). Uninstalling removes every registry key.
+
+## Tests
+```
+pip install pytest
+pytest            # GUI tests run headless (QT_QPA_PLATFORM=offscreen)
+```
